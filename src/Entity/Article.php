@@ -48,6 +48,11 @@ class Article
      */
     private $categories;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $text;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -140,6 +145,18 @@ class Article
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
+
+        return $this;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(?string $text): self
+    {
+        $this->text = $text;
 
         return $this;
     }

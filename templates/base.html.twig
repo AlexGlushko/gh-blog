@@ -14,7 +14,7 @@
 
     <div class="container">
 
-        //Header start
+        {#Header start#}
                 <div class="row justify-content-center header">
                     {% block header %}
                         <div class="col-md-4 logotype">
@@ -22,29 +22,31 @@
                         </div>
 
                         <nav class="nav col-md-8">
-                            <a class="nav-link active" href="#">Home</a>
+                            <a class="nav-link active" href="{{ path('index') }}">Home</a>
                             <a class="nav-link" href="#">Author</a>
 
                         </nav>
 
                     {% endblock %}
                 </div>
-        //Header end
+        {#Header end#}
 
-        //Content start
+        {#Content start#}
                 <div class="row justify-content-center">
 
-                        //Main content start
+                        {#Main content start#}
 
                                 <div class="col-md-8 main-content">
                                     {% block main_content %}
 
                                     {% endblock %}
                                 </div>
-                        //Main content end
+                        {#Main content end#}
 
 
-                        //Right menu start
+
+                        {#Right menu start#}
+                                {% block right_menu %}
                                 <div class="col-md-4">
                                     <div class="right-side-menu">
                                         <h5>Categories</h5>
@@ -58,10 +60,10 @@
 
                                 </div>
                                     {% endblock %}
-                         //Right menu  end
+                         {#Right menu  end#}
 
                 </div>
-         //Content end
+         {#Content end#}
 
 
     </div>

@@ -13,20 +13,25 @@ use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 
 class ArticleFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+
+        $faker = Factory::create();
+
         $categories = $manager->getRepository(Category::class)->findAll();
 
         for ($i = 0; $i < 25; $i++) {
             $article = new Article();
-            $article->setTitle('Title of article ' . $i);
-            $article->setDescription('The description of article ' . $i);
+            $article->setTitle($faker->realText(60,2));
+            $article->setDescription($faker->realText(240,2));
             $article->setIsEnabled(true);
             $article->setCreatedAt(new \DateTime());
             $article->setUpdatedAt($article->getCreatedAt());
+            $article->setText($faker->realText(1500,2));
 
             foreach ($categories as $category) {
                 $article->addCategory($category);

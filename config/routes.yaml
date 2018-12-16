@@ -1,3 +1,8 @@
 index:
     path: /
     controller: App\Controller\Articles\ArticlesController::showAll
+
+show_article:
+    path: /article/{id}
+    controller: App\Controller\Articles\ArticlesController::show
+
