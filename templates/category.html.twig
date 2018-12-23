@@ -1,0 +1,13 @@
+ {% block right_menu %}
+     <div class="col-md-4">
+         <div class="right-side-menu">
+             <h5>Categories</h5>
+             <nav class="nav flex-column">
+                 {% for category in categories %}
+                 <a class="nav-link active" href="{{ path('show_categories_in_menu', {'id': category.id}) }}">{{ category.name }}</a>
+                 {% endfor %}
+             </nav>
+         </div>
+
+     </div>
+ {% endblock %}

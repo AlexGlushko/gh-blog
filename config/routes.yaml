@@ -6,3 +6,14 @@ show_article:
     path: /article/{id}
     controller: App\Controller\Articles\ArticlesController::show
 
+show_articles_by_category:
+  path: /category/{id}
+  controller: App\Controller\Category\CategoryController::show
+
+show_categories_in_menu:
+  path: /category/{id}
+  controller: App\Controller\Category\CategoryController::showAll
+
+
+
+
