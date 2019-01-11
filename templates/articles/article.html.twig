@@ -2,15 +2,19 @@
 
 {% block main_content %}
     <div class="article-short">
+        {{ dump(article) }}
         {% block post_title %}<h4><b>{{ article.title }}</b></h4>{% endblock %}
         {% block createdAt %}<div class="created">Posted: {{ article.createdAt|date("d/m/Y") }}</div> {% endblock %}
         {% block post_text %}<p>{{ article.text }}</p>{% endblock %}
     </div>
-    {% block comments %}
 
-    {% endblock %}
 {% endblock %}
 
+{% block commentsForm %}
+    {{ render(controller('App\\Controller\\Articles\\ArticlesController::commentForm')) }}
+{% endblock %}
+    {% block commnetsPost %}
+    {% endblock %}
 
 {% block right_menu %}
     {{ render(controller('App\\Controller\\Category\\CategoryController::showAll')) }}
