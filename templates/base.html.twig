@@ -39,6 +39,9 @@
                                 <div class="col-md-8 main-content">
                                     {% block main_content %}
 
+
+                                    {% endblock %}
+                                    {% block commentsForm %}
                                     {% endblock %}
                                 </div>
                         {#Main content end#}
@@ -47,18 +50,7 @@
 
                         {#Right menu start#}
                                 {% block right_menu %}
-                                <div class="col-md-4">
-                                    <div class="right-side-menu">
-                                        <h5>Categories</h5>
-                                        <nav class="nav flex-column">
-                                            <a class="nav-link active" href="#">Politics</a>
-                                            <a class="nav-link" href="#">Bussines</a>
-                                            <a class="nav-link" href="#">Medical</a>
-                                            <a class="nav-link" href="#">In a world</a>
-                                        </nav>
-                                    </div>
 
-                                </div>
                                     {% endblock %}
                          {#Right menu  end#}
 
@@ -67,6 +59,7 @@
 
 
     </div>
+
 
 
 

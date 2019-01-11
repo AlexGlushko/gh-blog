@@ -13,15 +13,25 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 15; $i++) {
+        foreach ($this->getUsers() as list($username, $password)) {
             $user = new Users();
-            $user->setName($faker->name);
-            $user->setPassword($faker->password);
+            $user->setName($username);
+            $user->setPassword($password);
             $user->setBanStatus(false);
 
             $manager->persist($user);
         }
 
         $manager->flush();
+    }
+
+    public function getUsers(): array
+    {
+        return [
+                    ['Mr.Snowman', '123465789'],
+                    ['Oddissman', 'Oddissman'],
+                    ['Mr. Zadrot', 'zadrot123'],
+                    ['MANDARIN', 'qwerty'],
+        ];
     }
 }

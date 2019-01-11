@@ -74,3 +74,9 @@ body {
     text-decoration: none;
     transition: all ease 3ms;
 }
+
+.created{
+    color: var(--main-text);
+    font-size: .8rem;
+    margin-bottom: .4rem;
+}
