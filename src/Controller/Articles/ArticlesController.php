@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ArticlesController extends AbstractController
 {
@@ -46,30 +47,29 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/comment/{id}/new", methods={"POST"}, name="commentnew"))
-     *
-     * @param Request $request
-     * @param Article $article
-     * @return Response
-     */
     public function commentNew(Request $request, Article $article): Response
     {
         $comment = new Comment();
         $article->addComment($comment);
 
-        $form = $this->createForm(CommentType::class, $comment);
+        $form = $this->createForm(
+            CommentType::class,
+            $comment,
+            ['action' => $this->generateUrl('comment_new', ['id' => $article->getId()])]
+        );
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
+            $this->addFlash(
+                'notice',
+                'Your comment are saved'
+            );
 
-            return $this->redirectToRoute('commentnew',[
+            return $this->redirectToRoute('show_article', [
                 'id'=> $article->getId()]);
-
         }
 
         return $this->render('commentForm.html.twig', [
@@ -82,6 +82,13 @@ class ArticlesController extends AbstractController
         $form = $this->createForm(CommentType::class);
         return $this->render('commentForm.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    public function commentsShow(Article $article)
+    {
+        return $this->render('commentsShow.html.twig', [
+            'comments' => $article->getComments()
         ]);
     }
 }

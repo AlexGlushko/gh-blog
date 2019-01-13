@@ -23,7 +23,8 @@
 
                         <nav class="nav col-md-8">
                             <a class="nav-link active" href="{{ path('index') }}">Home</a>
-                            <a class="nav-link" href="#">Author</a>
+                            <a class="nav-link" href="#">Authors</a>
+                            <a class="nav-link" href="#">Login</a>
 
                         </nav>
 
@@ -42,6 +43,8 @@
 
                                     {% endblock %}
                                     {% block commentsForm %}
+                                    {% endblock %}
+                                    {% block comments %}
                                     {% endblock %}
                                 </div>
                         {#Main content end#}
