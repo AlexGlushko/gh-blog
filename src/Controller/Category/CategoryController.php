@@ -5,18 +5,21 @@ namespace App\Controller\Category;
 use App\Entity\Article;
 use App\Entity\Category;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Yaml\Tests\A;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class CategoryController extends Controller
 {
-    public function show(Request $request, PaginatorInterface $paginator, Category $category)
+
+    public function show(Request $request, PaginatorInterface $paginator, Category $category): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository(Article::class)->findByCategoryId($category);
 
 
-        $articles = $paginator->paginate($category->getArticles(), $request->query->getInt('page', 1), 5);
+        $articles = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
 
 
         $breadcrumbs = $this->get('white_october_breadcrumbs');
