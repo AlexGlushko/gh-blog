@@ -9,7 +9,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ArticlesController extends Controller
 {
@@ -35,8 +35,6 @@ class ArticlesController extends Controller
 
     public function show($id)
     {
-
-
         $article =$this->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
@@ -54,10 +52,10 @@ class ArticlesController extends Controller
         ]);
     }
 
-    public function commentNew(Request $request, Article $article): Response
+    public function commentNew(Request $request, ValidatorInterface $validator, Article $article): Response
     {
         $comment = new Comment();
-        $article->addComment($comment);
+
 
         $form = $this->createForm(
             CommentType::class,
@@ -65,6 +63,10 @@ class ArticlesController extends Controller
             ['action' => $this->generateUrl('comment_new', ['id' => $article->getId()])]
         );
         $form->handleRequest($request);
+
+        $errors = $validator->validate($form);
+
+        $article->addComment($comment);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -79,8 +81,10 @@ class ArticlesController extends Controller
                 'id'=> $article->getId()]);
         }
 
+
         return $this->render('commentForm.html.twig', [
             'form' => $form->createView(),
+            'errors' => $errors
         ]);
     }
 
