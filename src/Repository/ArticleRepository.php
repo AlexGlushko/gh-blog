@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,22 +21,29 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /*
+      * @return Article[] Returns an array of Article objects
+      *
+      */
+      /**
+       * @param $category
+       * @return Query
+       *
+       */
+
+    public function findByCategoryId(Category $category): Query
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+                ->innerJoin('a.categories', 'c')
+                ->andWhere('c.id = :category')
+                ->setParameter('category', $category)
+                ->orderBy('a.id', 'DESC')
+                ->setMaxResults(10)
+                ->getQuery()
+
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Article
