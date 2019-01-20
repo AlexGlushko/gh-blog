@@ -18,6 +18,9 @@ comment_new:
   path: comment/{id}/new
   controller: App\Controller\Articles\ArticlesController::commentNew
 
+logout:
+  path: /logout
+
 
 
 

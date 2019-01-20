@@ -8,15 +8,19 @@ use App\Form\CommentType;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ArticlesController extends AbstractController
+class ArticlesController extends Controller
 {
     public function showAll(Request $request, PaginatorInterface $paginator): Response
     {
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addRouteItem('Home', 'index');
+
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository(Article::class)->createQueryBuilder('a')->getQuery();
         $articles = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
@@ -34,9 +38,15 @@ class ArticlesController extends AbstractController
 
     public function show($id)
     {
+
+
         $article =$this->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
+
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem('Home', $this->get('router')->generate('index'));
+        $breadcrumbs->addItem($article->getTitle());
 
         if (!$article) {
             throw $this->createNotFoundException('No article found for id ' .$id);
