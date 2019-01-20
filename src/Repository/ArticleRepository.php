@@ -34,11 +34,13 @@ class ArticleRepository extends ServiceEntityRepository
     public function findByCategoryId(Category $category): Query
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.categories= :val')
-            ->setParameter('val', $category)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
+                ->innerJoin('a.categories', 'c')
+                ->andWhere('c.id = :category')
+                ->setParameter('category', $category)
+                ->orderBy('a.id', 'DESC')
+                ->setMaxResults(10)
+                ->getQuery()
+
         ;
     }
 
