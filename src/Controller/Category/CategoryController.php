@@ -9,10 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class CategoryController extends Controller
 {
-
     public function show(Request $request, PaginatorInterface $paginator, Category $category): Response
     {
         $em = $this->getDoctrine()->getManager();

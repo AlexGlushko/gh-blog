@@ -21,15 +21,15 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-     /*
-      * @return Article[] Returns an array of Article objects
-      *
-      */
-      /**
-       * @param $category
-       * @return Query
-       *
-       */
+    /*
+     * @return Article[] Returns an array of Article objects
+     *
+     */
+    /**
+     * @param $category
+     * @return Query
+     *
+     */
 
     public function findByCategoryId(Category $category): Query
     {
