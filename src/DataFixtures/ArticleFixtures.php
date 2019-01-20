@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: halex
- * Date: 16.12.18
- * Time: 18:46
- */
 
 namespace App\DataFixtures;
 
@@ -33,7 +27,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
             $article->setText($faker->realText(1500, 2));
             //$article->addCategory($this->getReference('category'));
 
-            foreach  ($categories as $category) {
+            foreach ($categories as $category) {
                 $article->addCategory($category);
             }
 
