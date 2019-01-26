@@ -4,6 +4,7 @@ namespace App\Controller\Articles;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Form\ArticleType;
 use App\Form\CommentType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -100,6 +101,32 @@ class ArticlesController extends Controller
     {
         return $this->render('commentsShow.html.twig', [
             'comments' => $article->getComments()
+        ]);
+    }
+
+    public function articleNew(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $article = new Article();
+        $article->setUser($this->getUser());
+
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('show_article', [
+                'id' => $article->getId(),
+            ]);
+        }
+
+        return $this->render('articles/create.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -30,7 +30,7 @@ class Article
     private $description;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isEnabled;
 
