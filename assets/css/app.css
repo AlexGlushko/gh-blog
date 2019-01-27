@@ -80,3 +80,11 @@ body {
     font-size: .8rem;
     margin-bottom: .4rem;
 }
+
+.nav ul{
+    list-style-type: none;
+    padding-left: 20px;
+}
+.nav li{
+    margin-bottom: .7rem;
+}

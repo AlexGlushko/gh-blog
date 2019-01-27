@@ -30,7 +30,7 @@ class Article
     private $description;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isEnabled;
 
@@ -50,6 +50,13 @@ class Article
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $categories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
+     */
+    private $category;
+
+
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -216,5 +223,21 @@ class Article
         $this->user = $user;
 
         return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 }
