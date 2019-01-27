@@ -52,6 +52,13 @@ class Article
     private $categories;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
+     */
+    private $category;
+
+
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $text;
@@ -216,5 +223,21 @@ class Article
         $this->user = $user;
 
         return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 }

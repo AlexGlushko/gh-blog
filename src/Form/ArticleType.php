@@ -8,7 +8,6 @@
 
 namespace App\Form;
 
-
 use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,13 +29,13 @@ class ArticleType extends AbstractType
             ->add('description', TextType::class, array(
                 'required'=> true
             ))
-            ->add('text',TextareaType::class, array(
+            ->add('text', TextareaType::class, array(
                 'required'=> true
             ))
-            ->add('categories', EntityType::class, [
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'multiple' => true,
+                'multiple' => false,
             ])
             ->add('submit', SubmitType::class)
         ;
@@ -44,7 +43,5 @@ class ArticleType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
-
 }
