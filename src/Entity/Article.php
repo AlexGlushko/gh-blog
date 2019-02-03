@@ -224,7 +224,7 @@ class Article
 
         return $this;
     }
-    
+
     /**
      * @return mixed
      */

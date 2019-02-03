@@ -5,14 +5,18 @@
     <div class="article-short">
 
         {% block post_title %}<h4><b>{{ article.title }}</b></h4>{% endblock %}
-        {% block createdAt %}<div class="created">Posted: {{ article.createdAt|date("d/m/Y") }}</div> {% endblock %}
+        {% block createdAt %}<div class="created">Posted: {{ article.createdAt|date("d/m/Y") }}
+
+            </div> {% endblock %}
         {% block post_text %}<p>{{ article.text }}</p>{% endblock %}
     </div>
 
 {% endblock %}
 
 {% block commentsForm %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {{ render(controller('App\\Controller\\Articles\\ArticlesController::commentNew', {'id': article.id} )) }}
+    {% endif %}
 {% endblock %}
     {% block comments %}
         {{ render(controller('App\\Controller\\Articles\\ArticlesController::commentsShow', {'id': article.id} )) }}

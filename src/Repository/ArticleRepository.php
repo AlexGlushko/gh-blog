@@ -34,7 +34,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findByCategoryId(Category $category): Query
     {
         return $this->createQueryBuilder('a')
-                ->innerJoin('a.categories', 'c')
+                ->innerJoin('a.category', 'c')
                 ->andWhere('c.id = :category')
                 ->setParameter('category', $category)
                 ->orderBy('a.id', 'DESC')

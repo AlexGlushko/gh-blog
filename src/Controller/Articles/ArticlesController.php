@@ -3,10 +3,14 @@
 namespace App\Controller\Articles;
 
 use App\Entity\Article;
+use App\Entity\ArticleLike;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Form\CommentType;
+use App\Service\Notifer;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,6 +38,7 @@ class ArticlesController extends Controller
         ]);
     }
 
+
     public function show($id)
     {
         $article =$this->getDoctrine()
@@ -53,9 +58,11 @@ class ArticlesController extends Controller
         ]);
     }
 
-    public function commentNew(Request $request, ValidatorInterface $validator, Article $article): Response
+    public function commentNew(Request $request, ValidatorInterface $validator, Article $article, Notifer $notifer): Response
     {
         $comment = new Comment();
+
+        $author = $article->getUser()->getEmail();
 
 
         $form = $this->createForm(
@@ -73,6 +80,9 @@ class ArticlesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
+
+            $notifer->notifyAuthor($author);
+
             $this->addFlash(
                 'notice',
                 'Your comment are saved'
@@ -104,7 +114,7 @@ class ArticlesController extends Controller
         ]);
     }
 
-    public function articleNew(Request $request)
+    public function articleNew(Request $request, Notifer $notifer)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $article = new Article();
@@ -114,11 +124,11 @@ class ArticlesController extends Controller
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em= $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
+            $notifer->notifyAuthor();
 
             return $this->redirectToRoute('show_article', [
                 'id' => $article->getId(),
