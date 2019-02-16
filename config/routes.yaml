@@ -25,6 +25,10 @@ comment_new:
 logout:
   path: /logout
 
+api:
+  prefix: /api
+  resource: './routes/api_routes.yaml'
+
 
 
 
