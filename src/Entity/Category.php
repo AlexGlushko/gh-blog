@@ -29,7 +29,7 @@ class Category
     private $isEnabled;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="category")
      */
     private $articles;
 

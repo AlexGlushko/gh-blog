@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    admin_email: stalevar.1990@gmail.com
 
 services:
     # default configuration for services in *this* file
@@ -47,3 +48,8 @@ services:
         arguments: [~, App\Entity\Article, ~]
         tags:
         - { name: sonata.admin, manager_type: orm, label: 'Article' }
+
+
+    App\Service\Notifer:
+        arguments:
+            $adminEmail: '%admin_email%'
