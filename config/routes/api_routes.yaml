@@ -1,0 +1,14 @@
+articles_list:
+  path: /articles
+  methods: [GET]
+  controller: App\Controller\Api\ArticlesController::index
+
+articles_by_id:
+  path: /article/{id}
+  methods: [GET]
+  controller: App\Controller\Api\ArticlesController::showById
+
+comments_by_article:
+  path: /comments/article/{id}
+  methods: [GET]
+  controller: App\Controller\Api\CommentsController::getArticleComments
