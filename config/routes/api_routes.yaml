@@ -12,3 +12,5 @@ comments_by_article:
   path: /comments/article/{id}
   methods: [GET]
   controller: App\Controller\Api\CommentsController::getArticleComments
+
+
