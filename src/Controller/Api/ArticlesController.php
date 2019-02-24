@@ -28,7 +28,7 @@ class ArticlesController extends AbstractController
         $data = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
 
         $jsonData = $this->serializer->serialize([
-            'data' => ['list' => $data ],
+            'data' => $data,
             ],
             'json',['groups' => ['list'],
         ]);

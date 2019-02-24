@@ -2,6 +2,7 @@ sensio_framework_extra:
   request:
     converters: true
     auto_convert: false
+
 knp_menu:
   # use "twig: false" to disable the Twig extension and the TwigRenderer
   twig:
@@ -10,3 +11,8 @@ knp_menu:
   templating: false
   # the renderer to use, list is also available by default
   default_renderer: twig
+
+
+gesdinet_jwt_refresh_token:
+  ttl: 2592000
+  ttl_update: true
