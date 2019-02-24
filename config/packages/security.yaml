@@ -24,12 +24,17 @@ security:
               pattern:  ^/api/login
               stateless: true
               anonymous: true
-              provider: app_user_provider
               json_login:
                   check_path:               /api/login_check
                   success_handler:          lexik_jwt_authentication.handler.authentication_success
                   failure_handler:          lexik_jwt_authentication.handler.authentication_failure
-                  require_previous_session: false
+
+          api:
+              pattern:   ^/api
+              stateless: true
+              guard:
+                  authenticators:
+                        - lexik_jwt_authentication.jwt_token_authenticator
 
           main:
               logout:
@@ -39,14 +44,7 @@ security:
                   authenticators:
                       - App\Security\LoginFormAuthenticator
 
-          api:
-              pattern:   ^/api
-              stateless: true
-              anonymous: false
-              provider: app_user_provider
-              guard:
-                  authenticators:
-                        - lexik_jwt_authentication.jwt_token_authenticator
+
 
             # activate different ways to authenticate
 
@@ -60,10 +58,11 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
            - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-           - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-           - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
-           - { path: ^/admin,     roles: ROLE_ADMIN }
-           - { path: ^/profile,   roles: ROLE_USER }
+           - { path: ^/api/login,         roles: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/api,               roles: IS_AUTHENTICATED_FULLY }
+           - { path: ^/admin,             roles: ROLE_ADMIN }
+           - { path: ^/profile,           roles: ROLE_USER }
+
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
