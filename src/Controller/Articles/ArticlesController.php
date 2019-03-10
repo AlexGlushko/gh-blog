@@ -3,14 +3,12 @@
 namespace App\Controller\Articles;
 
 use App\Entity\Article;
-use App\Entity\ArticleLike;
 use App\Entity\Comment;
-use App\Entity\User;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Service\Notifer;
+use Bundles\PageLimitBundle\Service\PageLimit;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,14 +16,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ArticlesController extends Controller
 {
-    public function showAll(Request $request, PaginatorInterface $paginator): Response
+    public function showAll(Request $request, PaginatorInterface $paginator, PageLimit $limit): Response
     {
         $breadcrumbs = $this->get('white_october_breadcrumbs');
         $breadcrumbs->addRouteItem('Home', 'index');
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository(Article::class)->createQueryBuilder('a')->getQuery();
-        $articles = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
+        $query = $em->getRepository(Article::class)->createQueryBuilder('a')->orderBy('a.id', 'DESC')->getQuery();
+        $articles = $paginator->paginate($query, $request->query->getInt('page', 1), $limit->getLimit() );
 
         if (!$articles) {
             throw $this->createNotFoundException(
@@ -39,7 +37,7 @@ class ArticlesController extends Controller
     }
 
 
-    public function show($id)
+    public function show(int $id)
     {
         $article =$this->getDoctrine()
             ->getRepository(Article::class)
@@ -128,7 +126,7 @@ class ArticlesController extends Controller
             $em= $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
-            $notifer->notifyAuthor();
+            $notifer->notifyAuthor($article->getUser());
 
             return $this->redirectToRoute('show_article', [
                 'id' => $article->getId(),
