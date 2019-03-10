@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -18,6 +19,8 @@ class Article
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"list"})
+     * @var int
+     * @SWG\Property(description="The unique identifier of the user.")
      *
      */
     private $id;
@@ -25,12 +28,14 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"list"})
+     * @SWG\Property(type="string", maxLength=255)
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"list"})
+     * @SWG\Property(type="string", maxLength=255)
      */
     private $description;
 
@@ -66,6 +71,7 @@ class Article
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @SWG\Property(type="string")
      */
     private $text;
 

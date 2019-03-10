@@ -5,6 +5,8 @@ namespace App\Controller\Api;
 
 use App\Entity\Article;
 use Knp\Component\Pager\PaginatorInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +21,21 @@ class ArticlesController extends AbstractController
         $this->serializer =$serializer;
     }
 
+    /**
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return Response
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="List of articles",
+     *     @Model(type=Article::class, groups={"list"}),
+     *     @SWG\Schema(
+     *          type="string",
+     *     )
+     * )
+     *
+     */
     public function index(Request $request, PaginatorInterface $paginator)
     {
         #for select page add GET query ?page=2
