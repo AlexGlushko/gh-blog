@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block main_content %}
+    <h1>Register</h1>
+    {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.username) }}
+    {{ form_row(registrationForm.plainPassword) }}
+
+        <button class="btn btn-primary">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
+{% block right_menu %}
+    {{ render(controller('App\\Controller\\Category\\CategoryController::showAll')) }}
+
+
+{% endblock %}
+

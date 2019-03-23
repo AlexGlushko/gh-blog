@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Bundles\PageLimitBundle\Service\PageLimit:
+    $limit: '%limit.articles_per_page%'

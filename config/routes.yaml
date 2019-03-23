@@ -25,6 +25,10 @@ comment_new:
 logout:
   path: /logout
 
+userbio_edit:
+  path: /user/edit/{id}
+  controller: App\Controller\User\UserEditController::index
+
 api:
   prefix: /api
   resource: './routes/api_routes.yaml'

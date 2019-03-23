@@ -1,9 +1,9 @@
  {% block right_menu %}
-     <div class="col-md-4">
+     <div >
          <div class="right-side-menu">
              {% if is_granted('IS_AUTHENTICATED_FULLY') %}
              <div class="add-post " >
-                 <a class="btn btn-outline-info mb-3" role="button" type="button" href="{{ path('create_article') }}">Create new article</a>
+                 <a class="btn btn-outline-primary mb-3" role="button" type="button" href="{{ path('create_article') }}">Create new article</a>
              </div>
              {% endif %}
             {# <h5>Categories</h5>
@@ -12,7 +12,7 @@
                  <a class="nav-link active" href="{{ path('show_categories_in_menu', {'id': category.id}) }}">{{ category.name }}</a>
                  {% endfor %}
              </nav>#}
-             <h5>Knp Menu</h5>
+             <h4 class="ml-3 "><b>Knp Menu</b></h4>
              <nav class="nav flex-column">
                  {{ knp_menu_render('mainMenu') }}
              </nav>

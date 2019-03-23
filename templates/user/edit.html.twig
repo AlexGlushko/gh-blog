@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block main_content %}
+    <h1>Edit User</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    <hr>
+    {{ form_row(form.plainPassword) }}
+    <hr>
+    <button class="btn">Update</button>
+    {{ form_end(form) }}
+{% endblock %}
+{% block right_menu %}
+    {{ render(controller('App\\Controller\\Category\\CategoryController::showAll')) }}
+
+
+{% endblock %}

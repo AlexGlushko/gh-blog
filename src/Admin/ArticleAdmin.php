@@ -79,7 +79,7 @@ class ArticleAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('title')
-            ->add('categories', null, [], EntityType::class, [
+            ->add('category', null, [], EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])

@@ -57,10 +57,7 @@ class Article
      */
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="articles")
-     */
-    private $categories;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
