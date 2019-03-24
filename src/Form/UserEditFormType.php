@@ -26,6 +26,7 @@ class UserEditFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => 'Password ** Enter for accepting changes',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',

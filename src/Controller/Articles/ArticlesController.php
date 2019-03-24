@@ -79,7 +79,7 @@ class ArticlesController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            $notifer->notifyAuthor($author);
+            //$notifer->notifyAuthor($author);
 
             $this->addFlash(
                 'notice',
@@ -126,7 +126,7 @@ class ArticlesController extends Controller
             $em= $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
-            $notifer->notifyAuthor($article->getUser());
+           // $notifer->notifyAuthor($article->getUser());
 
             return $this->redirectToRoute('show_article', [
                 'id' => $article->getId(),

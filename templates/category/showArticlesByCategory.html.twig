@@ -9,6 +9,15 @@
             {% block createdAt %}<div class="created">Posted: {{ article.createdAt|date("d/m/Y") }}</div> {% endblock %}
             {% block post_text %}<p>{{ article.description }} </p>{% endblock %}
             <a href="{{ path('show_article', {'id': article.id}) }}" type="button" class="btn-custom">Read more</a>
+            <a href="#" class="ml-3 mr-5">Comments : {{ article.comments|length }}</a>
+            {% block tags %}
+                {% if article.tags|length %}
+                <small><b>Tags:</b></small>
+                {% for tag in article.tags %}
+                    <small> {{ tag.name }}</small>
+                {% endfor %}
+                {% endif %}
+            {% endblock %}
         </div>
 
     {% endfor %}
