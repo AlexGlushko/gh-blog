@@ -29,19 +29,11 @@ class Category
     private $isEnabled;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
      */
     private $articles;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="categories")
-     */
-    private $parent;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parent")
-     */
-    private $categories;
 
     public function __construct()
     {

@@ -15,26 +15,27 @@
     <div class="container">
 
         {#Header start#}
-                <div class="row justify-content-center header">
+                <div class="row  header">
                     {% block header %}
-                        <div class="col-md-4 logotype">
-                            {{ logoname }}
-                        </div>
+                            <div class="col-md-3 logotype">{{ logoname }}</div>
 
-                        <nav class="nav col-md-8 d-flex">
-                            <a class="nav-link active p-2" href="{{ path('index') }}">Home</a>
-                            <a class="nav-link p-2" href="#">Authors</a>
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <a class="nav-link ml-auto p-2" href="#">{{ app.user.username }}</a>
-                                <a class="nav-link  p-2" href="{{ path('logout') }}">Logout</a>
+                            <nav class="nav col-md-5 d-flex">
+                                <a class="nav-link active p-2" href="{{ path('index') }}">Home</a>
+                                <a class="nav-link mr-auto p-2" href="#">Authors</a>
+                            </nav>
 
-                                {% else %}
-                                    <a class="nav-link ml-auto p-2" href="{{ path('app_login') }}">Login</a>
-                            {% endif %}
+                            <div class="col-md-4 d-flex justify-content-end">
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        <a class="nav-link p-2" title="Edit you profile" href="{{ path('userbio_edit',{'id':app.user.id }) }}">{{ app.user.username }}</a>
+                                        <a class="nav-link  p-2" href="{{ path('logout') }}">Logout</a>
 
+                                    {% else %}
 
-                        </nav>
+                                            <a class="nav-link  p-2" href="{{ path('app_login') }}">Login</a>
+                                            <a class="nav-link  p-2" href="{{ path('app_register') }}">Register</a>
 
+                                    {% endif %}
+                            </div>
                     {% endblock %}
                 </div>
         {#Header end#}
@@ -44,7 +45,7 @@
 
                         {#Main content start#}
 
-                                <div class="col-md-8 main-content">
+                                <div class="col-md-10 main-content">
                                     {% block main_content %}
 
 
@@ -59,8 +60,10 @@
 
 
                         {#Right menu start#}
+                                <div class="col-md-2">
                                 {% block right_menu %}
                                     {% endblock %}
+                                </div>
                          {#Right menu  end#}
 
                 </div>
