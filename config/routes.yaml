@@ -46,7 +46,13 @@ app.swagger_ui:
   methods: GET
   defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
 
+search:
+  path: /search
+  controller: App\Controller\Search\SearchController::searchAction
 
+search_res:
+  path: /results/{query}
+  controller: App\Controller\Search\SearchController::searchResults
 
 
 

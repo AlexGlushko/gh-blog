@@ -22,7 +22,13 @@
                             <nav class="nav col-md-5 d-flex">
                                 <a class="nav-link active p-2" href="{{ path('index') }}">Home</a>
                                 <a class="nav-link mr-auto p-2" href="#">Authors</a>
+                                <div class="form-inline">
+
+                                    {{ render(controller('App\\Controller\\Search\\SearchController::searchAction')) }}
+
+                                </div>
                             </nav>
+
 
                             <div class="col-md-4 d-flex justify-content-end">
                                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -36,6 +42,7 @@
 
                                     {% endif %}
                             </div>
+
                     {% endblock %}
                 </div>
         {#Header end#}

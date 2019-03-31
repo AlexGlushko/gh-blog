@@ -33,5 +33,5 @@ yarn-error.log
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
-
+/src/Entity/.*
 ###< phpunit/phpunit ###
