@@ -18,6 +18,8 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction('results')
+            ->setMethod('GET')
             ->add('query', TextType::class,
                 [
                     'constraints' => [

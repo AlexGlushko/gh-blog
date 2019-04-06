@@ -2,7 +2,13 @@
 
 {% block main_content %}
 
+
+    {% for query in app.request.query %}
+        <h3 class="mb-4">Search results for: <b style="color: #0d5aa7">{{ query.query }}</b></h3>
+    {% endfor %}
 {% for result in results %}
+
+
     <div class="article-short">
         {% block post_title %}<h4><b>{{ result.title }}</b></h4>{% endblock %}
         {% block createdAt %}<div class="created">Posted: {{ result.createdAt|date("d/m/Y") }}</div> {% endblock %}
@@ -21,4 +27,13 @@
         {% endblock %}
     </div>
     {% endfor %}
+
+    {% block pagination %}
+        {{ knp_pagination_render(results) }}
+    {% endblock %}
+{% endblock %}
+{% block right_menu %}
+    {{ render(controller('App\\Controller\\Category\\CategoryController::showAll')) }}
+
+
 {% endblock %}

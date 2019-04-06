@@ -48,10 +48,11 @@ app.swagger_ui:
 
 search:
   path: /search
-  controller: App\Controller\Search\SearchController::searchAction
+  controller: App\Controller\Search\SearchController::searchFormRenderer
 
 search_res:
-  path: /results/{query}
+  path: /results
+  methods: GET
   controller: App\Controller\Search\SearchController::searchResults
 
 
