@@ -11,6 +11,8 @@ namespace App\Controller\Api;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +27,24 @@ class CommentsController extends AbstractController
     {
         $this->serializer = $serializer;
     }
-
+    
+    /**
+     *  @SWG\Response(
+     *     response=200,
+     *     description="Show comments",
+     *     @Model(type=Comment::class, groups={"comment"}),
+     *     @SWG\Schema(
+     *          type="string",
+     *          @SWG\Items(ref=@Model(type=Comment::class, groups={"comment"})),
+     *
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="string",
+     *     description="The field used to get item")
+     */
     #for use pagination add GET query : ?page={num}
     public function getArticleComments(Article $article, PaginatorInterface $paginator, Request $request )
     {
