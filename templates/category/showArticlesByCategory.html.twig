@@ -2,17 +2,30 @@
 
 {% block main_content %}
     {{ wo_render_breadcrumbs() }}
-    {% for article in category %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_subscribed(identifer, app.user) %}
+            <h3><b>W</b>ant to unsubscribe from this category?<a href="{{ path('unsubscribe', {'id' : identifer.id}) }}" class="badge badge-secondary m-2" style="color: white; ">Unsubscribe</a></h3>
+
+        {% else %}
+    <h3><b>W</b>ant to get new articles from this category?<a href="{{ path('subscribe', {'id' : identifer.id}) }}" class="badge badge-primary m-2" style="color: white; background: #19a974">Subscribe it</a></h3>
+   {% endif %}
+        {% endif %}
+    {% for article in articles %}
 
         <div class="article-short">
             {% block post_title %}<h4><b>{{ article.title }}</b></h4>{% endblock %}
             {% block createdAt %}<div class="created">Posted: {{ article.createdAt|date("d/m/Y") }}</div> {% endblock %}
             {% block post_text %}<p>{{ article.description }} </p>{% endblock %}
             <a href="{{ path('show_article', {'id': article.id}) }}" type="button" class="btn-custom">Read more</a>
-            <a href="#" class="ml-3 mr-5">Comments : {{ article.comments|length }}</a>
+            {% if article.comments|length %}
+                <a href="#" class="ml-3 mr-5"><i class="far fa-comments mr-2"></i> {{ article.comments|length }}</a>
+            {% endif %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('article_like', {'id':article.id }) }}" class="ml-3"><i class="far fa-thumbs-up"></i> </a>{{ article.articleLikes|length }}
+            {% endif %}
             {% block tags %}
                 {% if article.tags|length %}
-                <small><b>Tags:</b></small>
+                    <small><i class="fas fa-tags ml-4"></i></small>
                 {% for tag in article.tags %}
                     <small> {{ tag.name }}</small>
                 {% endfor %}
@@ -22,7 +35,7 @@
 
     {% endfor %}
     {% block pagination %}
-        {{ knp_pagination_render(category) }}
+        {{ knp_pagination_render(articles) }}
     {% endblock %}
 {% endblock %}
 

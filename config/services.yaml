@@ -25,6 +25,7 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     app.menu_builder:
@@ -49,6 +50,11 @@ services:
         tags:
         - { name: sonata.admin, manager_type: orm, label: 'Article' }
 
+    admin.comment:
+        class: App\Admin\CommentAdmin
+        arguments: [~, App\Entity\Comment, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: 'Comments' }
 
     App\Service\Notifer:
         arguments:

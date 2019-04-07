@@ -55,7 +55,23 @@ search_res:
   methods: GET
   controller: App\Controller\Search\SearchController::searchResults
 
+article_like:
+  path: /article/{id}/like
+  methods: GET
+  controller: App\Controller\Articles\ArticleLikeController::addLike
 
+subscribe:
+  path: /category/{id}/subscribe
+  methods: GET
+  controller: App\Controller\Subscription\SubscriptionController::subscribe
 
+unsubscribe:
+  path: /category/{id}/unsubscribe
+  methods: GET
+  controller: App\Controller\Subscription\SubscriptionController::unSubscribe
+
+subscribe_list:
+  path: /user/{id}/subscribe-list
+  controller: App\Controller\User\SubscribeListController::index
 
 

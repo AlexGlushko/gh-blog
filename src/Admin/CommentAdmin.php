@@ -1,54 +1,41 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: halex
- * Date: 27.01.19
- * Time: 21:27
- */
+
 
 namespace App\Admin;
 
+
 use App\Entity\Article;
-use App\Entity\Category;
-use App\Entity\User;
+use App\Entity\Comment;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class ArticleAdmin extends AbstractAdmin
+class CommentAdmin extends AbstractAdmin
 {
     public function toString($object)
     {
-        return $object instanceof Article
-            ? $object->getTitle()
-            : 'Article'; // shown in the breadcrumb on the create view
+        return $object instanceof Comment
+            ? $object->getArticle()
+            : 'Comment'; // shown in the breadcrumb on the create view
     }
-
+    
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->with('Content', ['class' => 'col-md-9'])
-            ->add('title', TextType::class)
-            ->add('description', TextType::class)
-            ->add('text', TextareaType::class)
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
+            ->add('body', TextType::class)
+            ->add('article', EntityType::class, [
+                'class' => Article::class,
+                'choice_label' => 'id',
             ])
+            ->add('authorName', TextType::class)
             ->end()
+            
             ->with('Meta data', ['class' => 'col-md-3'])
-            ->add('isEnabled', ChoiceType::class, [
-                'choices' => [
-                    'active' => true,
-                    'inactive' => false
-                ]
-            ])
             ->add('createdAt', DateType::class, [
                 'widget' => 'single_text',
                 // this is actually the default format for single_text
@@ -60,26 +47,26 @@ class ArticleAdmin extends AbstractAdmin
                 'format' => 'yyyy-MM-dd',
             ])
             ->end()
-            ;
+        ;
     }
-
+    
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
             ->add('id')
-            ->addIdentifier('title')
-            ->add('category.name')
-            ->add('user.username')
-            ;
+            ->addIdentifier('body')
+            ->add('article.title')
+            ->add('authorName')
+        ;
     }
-
+    
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title')
-            ->add('category', null, [], EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
+            ->add('body')
+            ->add('article',null, [], EntityType::class, [
+                'class' => Article::class,
+                'choice_label' => 'id',
             ])
         ;
     }
