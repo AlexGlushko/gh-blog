@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -17,23 +18,27 @@ class Comment
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"comment"})
+     * @SWG\Property(description="The unique identifier of the comment.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"comment"})
+     * @SWG\Property(type="text")
      */
     private $body;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
+     *  @SWG\Property(type="relationship")
      */
     private $article;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"comment"})
+     *  @SWG\Property(type="string", maxLength=255)
      */
     private $authorName;
 
@@ -41,12 +46,14 @@ class Comment
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      * @Groups({"comment"})
+     * @SWG\Property(type="datetime")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
+     *  @SWG\Property(type="datetime")
      */
     private $updatedAt;
 

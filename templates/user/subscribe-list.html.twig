@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subscriptions list{% endblock %}
+
+{% block main_content %}
+    <h3 class="mb-4"><b>Y</b>our subscriptions list</h3>
+
+    <div class="card-columns ">
+    {% for subs in subscriptions %}
+
+
+
+
+            <div class="card ">
+                <div class="card-body">
+                    <h5 class="card-title">{{ subs.category.name }}</h5>
+                    <p class="card-text">Go to {{ subs.category.name }} category for unsubscribe this</p>
+                    <a href="{{ path('unsubscribe',{'id': subs.category.id}) }}" class="btn btn-primary"><small>Unsubscribe</small></a>
+                </div>
+            </div>
+
+    {% endfor %}
+    </div>
+{% endblock %}
+{% block right_menu %}
+    {{ render(controller('App\\Controller\\Category\\CategoryController::showAll')) }}
+
+
+{% endblock %}

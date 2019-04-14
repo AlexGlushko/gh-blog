@@ -32,6 +32,8 @@ class ArticlesController extends AbstractController
      *     @Model(type=Article::class, groups={"list"}),
      *     @SWG\Schema(
      *          type="string",
+     *          @SWG\Items(ref=@Model(type=Article::class, groups={"list"})),
+     *
      *     )
      * )
      *
@@ -54,8 +56,26 @@ class ArticlesController extends AbstractController
             'Content-Type' => 'application/json',
         ]);
     }
+    
+    
 
-
+    /**
+     *  @SWG\Response(
+     *     response=200,
+     *     description="Show by id",
+     *     @Model(type=Article::class, groups={"list"}),
+     *     @SWG\Schema(
+     *          type="string",
+     *          @SWG\Items(ref=@Model(type=Article::class, groups={"list"})),
+     *
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="string",
+     *     description="The field used to get item")
+     */
     public function showById($id)
     {
         $data = $this->getDoctrine()->getRepository(Article::class)->find($id);

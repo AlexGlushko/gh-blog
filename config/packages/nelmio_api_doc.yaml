@@ -2,8 +2,8 @@ nelmio_api_doc:
     documentation:
 
         info:
-            title: My App
-            description: This is an awesome app!
+            title: GH-blog API documentation
+            description: Documentation as is!
             version: 1.0.0
         securityDefinitions:
             Bearer:

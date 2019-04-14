@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
 
         $articles = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
-
+        $identifer =  $category;
 
         $breadcrumbs = $this->get('white_october_breadcrumbs');
         $breadcrumbs->addRouteItem('Home', 'index');
@@ -26,7 +26,8 @@ class CategoryController extends Controller
 
 
         return $this->render('category/showArticlesByCategory.html.twig', [
-           'category' => $articles,
+           'articles' => $articles,
+            'identifer' => $identifer,
         ]);
     }
 

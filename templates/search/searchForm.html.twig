@@ -1,7 +1,13 @@
 
 
 {{ form_start(search) }}
+{{ form_errors(search) }}
+
+
 {{ form_widget(search.query) }}
 {{ form_widget(search.submit) }}
+{% for message in app.flashes('error') %}
+    <div class="text-danger">{{ message }}</div>
+{% endfor %}
 {{ form_end(search) }}
 

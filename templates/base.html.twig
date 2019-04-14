@@ -7,6 +7,7 @@
             {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         {% endblock %}
     </head>
     {% block body %}
@@ -17,11 +18,10 @@
         {#Header start#}
                 <div class="row  header">
                     {% block header %}
-                            <div class="col-md-3 logotype">{{ logoname }}</div>
+                            <div class="col-md-3 logotype"><a href="{{ path('index') }}">{{ logoname }}</a> </div>
 
                             <nav class="nav col-md-5 d-flex">
-                                <a class="nav-link active p-2" href="{{ path('index') }}">Home</a>
-                                <a class="nav-link mr-auto p-2" href="#">Authors</a>
+                                <a class="nav-link active p-2 mr-4" href="{{ path('index') }}"><i class="fas fa-home mr-2"></i>Home</a>
                                 <div class="form-inline">
 
                                     {{ render(controller('App\\Controller\\Search\\SearchController::searchFormRenderer')) }}
@@ -32,13 +32,14 @@
 
                             <div class="col-md-4 d-flex justify-content-end">
                                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                        <a class="nav-link p-2" title="Edit you profile" href="{{ path('userbio_edit',{'id':app.user.id }) }}">{{ app.user.username }}</a>
-                                        <a class="nav-link  p-2" href="{{ path('logout') }}">Logout</a>
+                                        <a class="nav-link p-2" title="Edit you subscription" href="{{ path('subscribe_list',{'id':app.user.id }) }}"><i class="fas fa-rss-square"></i></a>
+                                        <a class="nav-link p-2" title="Edit you profile" href="{{ path('userbio_edit',{'id':app.user.id }) }}"><i class="fas fa-user-astronaut mr-2"></i>{{ app.user.username }}</a>
+                                        <a class="nav-link  p-2" href="{{ path('logout') }}"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
 
                                     {% else %}
 
-                                            <a class="nav-link  p-2" href="{{ path('app_login') }}">Login</a>
-                                            <a class="nav-link  p-2" href="{{ path('app_register') }}">Register</a>
+                                            <a class="nav-link  p-2" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+                                            <a class="nav-link  p-2" href="{{ path('app_register') }}"><i class="fas fa-fingerprint mr-2"></i>Register</a>
 
                                     {% endif %}
                             </div>

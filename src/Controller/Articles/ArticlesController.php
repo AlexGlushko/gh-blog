@@ -3,12 +3,16 @@
 namespace App\Controller\Articles;
 
 use App\Entity\Article;
+use App\Entity\ArticleLike;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Service\Notifer;
 use Bundles\PageLimitBundle\Service\PageLimit;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,10 +63,9 @@ class ArticlesController extends Controller
     public function commentNew(Request $request, ValidatorInterface $validator, Article $article, Notifer $notifer): Response
     {
         $comment = new Comment();
-
+        
         $author = $article->getUser()->getEmail();
-
-
+        
         $form = $this->createForm(
             CommentType::class,
             $comment,
@@ -137,4 +140,5 @@ class ArticlesController extends Controller
             'form' => $form->createView(),
         ]);
     }
+    
 }
