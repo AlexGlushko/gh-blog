@@ -6,7 +6,6 @@ namespace App\Controller\Subscription;
 
 use App\Entity\Category;
 use App\Entity\Subscription;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +25,7 @@ class SubscriptionController extends AbstractController
         }
         return $this->redirectToRoute('show_articles_by_category', ['id' => $category->getId()]);
     }
-    
+
     public function unSubscribe(EntityManagerInterface $entityManager, Category $category)
     {
         $repository =$entityManager->getRepository(Subscription::class);

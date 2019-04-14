@@ -1,7 +1,7 @@
 sensio_framework_extra:
   request:
     converters: true
-    auto_convert: false
+    auto_convert: true
 
 knp_menu:
   # use "twig: false" to disable the Twig extension and the TwigRenderer

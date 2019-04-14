@@ -23,9 +23,9 @@
                             <nav class="nav col-md-5 d-flex">
                                 <a class="nav-link active p-2 mr-4" href="{{ path('index') }}"><i class="fas fa-home mr-2"></i>Home</a>
                                 <div class="form-inline">
-
+                {% if app.request.requestUri == '/' %}
                                     {{ render(controller('App\\Controller\\Search\\SearchController::searchFormRenderer')) }}
-
+                {% endif %}
                                 </div>
                             </nav>
 
